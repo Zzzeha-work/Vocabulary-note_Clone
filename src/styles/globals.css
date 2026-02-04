@@ -1,0 +1,416 @@
+@import "tailwindcss";
+
+:root {
+  /* Pastel color palette for concentration */
+  --pastel-blue: #a8d8ea;
+  --pastel-purple: #d4b5ff;
+  --pastel-green: #b8e6cc;
+  --pastel-pink: #ffc8dd;
+  --pastel-yellow: #fff4b8;
+  --pastel-lavender: #e0d4f7;
+
+  /* Semantic colors */
+  --primary: var(--pastel-blue);
+  --secondary: var(--pastel-lavender);
+  --success: var(--pastel-green);
+  --accent: var(--pastel-purple);
+
+  /* Text colors */
+  --text-primary: #2d3436;
+  --text-secondary: #636e72;
+  --text-muted: #b2bec3;
+
+  /* Background */
+  --bg-white: #ffffff;
+  --bg-light: #fafbfc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* 브라우저 기본 폰트 크기 조정 방지 */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
+  /* 1. 폰트 스택: 일본어 학습 웹사이트에 최적화 (일본어 -> 한글 -> 영문 순) */
+  font-family: 
+    /* 시스템 UI 폰트 (성능 최적화) */
+    -apple-system,
+    BlinkMacSystemFont,
+    /* 일본어 폰트 우선 (학습 콘텐츠) */ "Hiragino Sans",
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    "Meiryo",
+    "MS PGothic",
+    /* 한글 폰트 (UI 및 번역) */ "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    "Malgun Gothic",
+    "맑은 고딕",
+    /* 영문 폰트 (폴백) */ "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    /* 최종 폴백 */ sans-serif;
+
+  background-color: var(--bg-white);
+
+  /* 2. 텍스트 렌더링: 맥과 윈도우에서 글자를 더 부드럽게 표현 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* 3. 기본 텍스트 색상: 눈의 피로를 줄이는 짙은 회색 */
+  color: var(--text-primary);
+
+  /* 4. 기본 줄 간격: 학습 시 시각적 여백 확보 */
+  line-height: 1.6;
+
+  /* 5. 텍스트 렌더링 품질 향상 */
+  text-rendering: optimizeLegibility;
+
+  /* 6. 서브픽셀 렌더링 (Windows Chrome/Edge) */
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+
+body {
+  /* 7. 단어 줄바꿈 설정: 긴 단어도 자연스럽게 처리 */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  /* 8. 하이픈 설정: 영어 단어 자동 하이픈 (일본어/한글은 영향 없음) */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+}
+
+#root {
+  height: 100%;
+}
+
+/* 제목 스타일: 가독성 최적화 */
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+  line-height: 1.2;
+  letter-spacing: -0.02em; /* 큰 제목의 자간 최적화 */
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* 일본어 텍스트 최적화 */
+[lang="ja"],
+.japanese-text {
+  /* 일본어 텍스트 간격 최적화 */
+  letter-spacing: 0.03em;
+  line-height: 1.7;
+}
+
+/* 입력 필드 폰트 일관성 */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* 스크롤바 스타일 (Webkit 브라우저) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pastel-lavender);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pastel-blue);
+}
+
+/* 선택 영역 스타일 */
+::selection {
+  background-color: var(--pastel-yellow);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background-color: var(--pastel-yellow);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   학습 카드 구조 (Flashcard Hierarchy)
+   ======================================== */
+
+/* 학습 카드 컨테이너 */
+.study-card {
+  padding: 40px 20px;
+  text-align: center;
+  /* 루비 문자(후리가나) 공간을 고려한 상단 여백 확보 */
+  padding-top: 60px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .study-card {
+    padding: 30px 16px;
+    padding-top: 50px;
+  }
+}
+
+/* 메인 단어 (일본어 한자/가나 또는 영어) */
+.word-main {
+  /* 한자의 복잡한 획을 위해 크기를 키움 */
+  font-size: 3rem;
+  /* 강조를 위해 Bold 적용 */
+  font-weight: 700;
+  /* 일본어 특유의 자형을 고려한 넉넉한 줄 간격 */
+  line-height: 1.8;
+  margin-bottom: 12px;
+  display: block;
+  color: var(--text-primary);
+  /* 단어가 너무 길 경우 줄바꿈 */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 모바일에서 폰트 크기 조정 */
+@media (max-width: 768px) {
+  .word-main {
+    font-size: 2rem;
+    line-height: 1.7;
+  }
+}
+
+/* 일본어 전용 스타일 */
+.word-japanese {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.8;
+  margin-bottom: 12px;
+  display: block;
+  color: var(--text-primary);
+  /* 일본어 텍스트 간격 최적화 */
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 768px) {
+  .word-japanese {
+    font-size: 2rem;
+    line-height: 1.7;
+  }
+}
+
+/* 보조 한국어 뜻/설명 */
+.meaning-korean {
+  /* 메인 단어보다 작게 설정하여 시각적 위계 형성 */
+  font-size: 1.125rem;
+  /* 가독성을 위한 중간 굵기 */
+  font-weight: 400;
+  /* 텍스트 색상을 살짝 연하게 하여 시선 분산 방지 */
+  color: var(--text-secondary);
+  /* 한글 가독성을 높이는 자간 조절 */
+  letter-spacing: -0.02em;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .meaning-korean {
+    font-size: 1rem;
+  }
+}
+
+/* 예시 문장 컨테이너 */
+.example-sentence {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background-color: var(--bg-white);
+  border-radius: 16px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.example-label {
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.example-text {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.8;
+  /* 일본어 예시 문장의 경우 간격 조정 */
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .example-sentence {
+    margin-top: 20px;
+    padding: 12px 16px;
+  }
+
+  .example-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* ========================================
+   루비 문자 (Ruby/Furigana) 스타일
+   ======================================== */
+
+/* 루비 컨테이너 */
+ruby {
+  /* 루비 문자를 위한 충분한 공간 확보 */
+  ruby-position: over;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+/* 루비 텍스트 (후리가나) */
+ruby rt {
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  /* 한자와 후리가나 사이의 간격 */
+  padding-bottom: 4px;
+  /* 후리가나 글자 간격 미세 조정 */
+  letter-spacing: 0.05em;
+  line-height: 1;
+  /* 브라우저 기본 스타일 초기화 */
+  text-transform: none;
+}
+
+@media (max-width: 768px) {
+  ruby rt {
+    font-size: 0.65rem;
+    padding-bottom: 3px;
+  }
+}
+
+/* 루비 베이스 (한자) */
+ruby rb {
+  display: inline-block;
+}
+
+/* 복잡한 한자를 위한 여백 확보 */
+ruby + ruby {
+  margin-left: 2px;
+}
+
+/* 루비 문자 정렬 개선 (최신 브라우저) */
+@supports (ruby-align: space-around) {
+  ruby {
+    ruby-align: space-around;
+  }
+}
+
+/* ========================================
+   카드 레이블 (앞면/뒷면 표시)
+   ======================================== */
+
+.card-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .card-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* ========================================
+   진행 표시 (Progress Indicator)
+   ======================================== */
+
+.progress-indicator {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   카드 플립 힌트
+   ======================================== */
+
+.flip-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 300;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.flip-hint:hover {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .flip-hint {
+    font-size: 0.75rem;
+    margin-top: 24px;
+  }
+}
