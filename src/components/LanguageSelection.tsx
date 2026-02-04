@@ -2,7 +2,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useNavigation } from '../hooks/useNavigation';
 import { useWordManagement } from '../hooks/useWordManagement';
 import { LoginBox } from './LoginBox';
-import { User, LogOut, Globe, Book } from 'lucide-react';
+import { User, LogOut, Globe } from 'lucide-react';
 
 export function LanguageSelection() {
   const { isLoggedIn, username, handleLogin, handleLogout, showLoginBox, toggleLoginBox, closeLoginBox } = useAuth();
