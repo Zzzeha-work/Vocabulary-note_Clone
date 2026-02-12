@@ -403,6 +403,6 @@ export const englishWords: Word[] = [
 
 ---
 
-**작성일:** 2024  
+**작성일:** 2026  
 **프로젝트:** 당고 암기장 🍡  
 **기술 스택:** React + TypeScript + Context API + Tailwind CSS
